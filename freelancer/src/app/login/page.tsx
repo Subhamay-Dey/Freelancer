@@ -19,12 +19,12 @@ import {
 export default function TabsDemo() {
   return (
     <div className="h-screen flex justify-center items-center">
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="login" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="login">Login</TabsTrigger>
+        <TabsTrigger value="register">Register</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">
+      <TabsContent value="login">
         <Card>
           <CardHeader>
             <CardTitle>Account</CardTitle>
@@ -47,7 +47,7 @@ export default function TabsDemo() {
           </CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="password">
+      <TabsContent value="register">
         <Card>
           <CardHeader>
             <CardTitle>Password</CardTitle>
