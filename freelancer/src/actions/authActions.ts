@@ -10,14 +10,14 @@ export async function registerAction(prevState:any, formdata:FormData) {
             username: formdata.get("username"),
             email: formdata.get("email"),
             password: formdata.get("password"),
-            Confirm_password: formdata.get("Confirm_password")
+            password_confirmation: formdata.get("password_confirmation"),
         }
         const payload = await RegisterValidator.validate(data);
         console.log("The form data is ", payload);
 
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
-            return {status: 400, errors: error.message};
+            return {status: 400, errors: error.messages};
         }
     }
 }

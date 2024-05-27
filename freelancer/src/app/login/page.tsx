@@ -17,7 +17,7 @@ export default function TabsDemo() {
         <p>a community of Freelancers</p>
       </div>
 
-    <Tabs defaultValue="login" className="w-[400px]">
+    <Tabs defaultValue="login" className="w-full p-2 md:w-[500px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">Login</TabsTrigger>
         <TabsTrigger value="register">Register</TabsTrigger>

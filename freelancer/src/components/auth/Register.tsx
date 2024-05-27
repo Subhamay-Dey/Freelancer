@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { Button } from "@/components/ui/button"
 import {
@@ -34,29 +35,32 @@ export default function Register() {
                     <Label htmlFor="name">Name</Label>
                     <Input
                         id="name"
-                        type="name" 
+                        type="text" 
                         placeholder='Enter your name' 
-                        name='name'
+                        name="name"
                     />
                     <span className='text-red-500 '>{state?.errors?.name}</span>
+
                 </div>
                 <div className="space-y-1 mt-2">
                 <Label htmlFor="username">Username</Label>
                 <Input
                     id="username"
-                    type="username" 
+                    type="text" 
                     placeholder='Enter your username' 
                     name='username'
                 />
+                <span className='text-red-500 '>{state?.errors?.username}</span>
                 </div>
                 <div className="space-y-1 mt-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                     id="email"
-                    type="email" 
+                    type="text" 
                     placeholder='Enter your email here' 
                     name='email'
                 />
+                <span className='text-red-500 '>{state?.errors?.email}</span>
                 </div>
                 <div className="space-y-1 mt-2">
                 <Label htmlFor="password">Password</Label>
@@ -66,15 +70,17 @@ export default function Register() {
                     placeholder='Enter your password' 
                     name='password'
                 />
+                <span className='text-red-500 '>{state?.errors?.password}</span>
                 </div>
                 <div className="space-y-1 mt-2">
                 <Label htmlFor="cpassword">Confirm password</Label>
                 <Input
-                    id="confirm-password"
+                    id="cpassword"
                     type="password" 
                     placeholder='Confirm your password' 
-                    name='Confirm_password'
+                    name='password_confirmation'
                 />
+                
                 </div>
                 <Button className='w-full mt-6'>Submit</Button>
             </form>
