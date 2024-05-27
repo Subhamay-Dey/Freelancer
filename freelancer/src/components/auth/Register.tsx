@@ -10,6 +10,12 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { registerAction } from '@/actions/authActions';
+
+const initState = {
+    status: 0,
+    errors: {},
+}
 
 export default function Register() {
   return (
@@ -21,56 +27,56 @@ export default function Register() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-          <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                type="name" 
-                placeholder='Enter your name' 
-                name='name'
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="username" 
-                placeholder='Enter your username' 
-                name='username'
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email" 
-                placeholder='Enter your email here' 
-                name='email'
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password" 
-                placeholder='Enter your password' 
-                name='password'
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="cpassword">Confirm password</Label>
-              <Input
-                id="confirm-password"
-                type="password" 
-                placeholder='Confirm your password' 
-                name='Confirm_password'
-              />
-            </div>
+            <form action={registerAction}>
+                <div className="space-y-1">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                        id="name"
+                        type="name" 
+                        placeholder='Enter your name' 
+                        name='name'
+                    />
+                </div>
+                <div className="space-y-1">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                    id="username"
+                    type="username" 
+                    placeholder='Enter your username' 
+                    name='username'
+                />
+                </div>
+                <div className="space-y-1">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                    id="email"
+                    type="email" 
+                    placeholder='Enter your email here' 
+                    name='email'
+                />
+                </div>
+                <div className="space-y-1">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                    id="password"
+                    type="password" 
+                    placeholder='Enter your password' 
+                    name='password'
+                />
+                </div>
+                <div className="space-y-1">
+                <Label htmlFor="cpassword">Confirm password</Label>
+                <Input
+                    id="confirm-password"
+                    type="password" 
+                    placeholder='Confirm your password' 
+                    name='Confirm_password'
+                />
+                </div>
+                <Button className='w-full'>Submit</Button>
+            </form>
 
           </CardContent>
-          <CardFooter>
-            <Button className='w-full'>Submit</Button>
-          </CardFooter>
         </Card>
   )
 }
