@@ -37,7 +37,7 @@ export default function Register() {
                         name='name'
                     />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 mt-2">
                 <Label htmlFor="username">Username</Label>
                 <Input
                     id="username"
@@ -46,7 +46,7 @@ export default function Register() {
                     name='username'
                 />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 mt-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                     id="email"
@@ -55,7 +55,7 @@ export default function Register() {
                     name='email'
                 />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 mt-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
                     id="password"
@@ -64,7 +64,7 @@ export default function Register() {
                     name='password'
                 />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 mt-2">
                 <Label htmlFor="cpassword">Confirm password</Label>
                 <Input
                     id="confirm-password"
@@ -73,7 +73,7 @@ export default function Register() {
                     name='Confirm_password'
                 />
                 </div>
-                <Button className='w-full'>Submit</Button>
+                <Button className='w-full mt-6'>Submit</Button>
             </form>
 
           </CardContent>

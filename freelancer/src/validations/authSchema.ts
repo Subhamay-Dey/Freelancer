@@ -1,4 +1,6 @@
-import vine from '@vinejs/vine'
+import vine from '@vinejs/vine';
+import { CustomErrorReporter } from './CustomErrorReporter';
+vine.errorReporter = () => new CustomErrorReporter();
 
 const registerSchema = vine.object({
     name: vine.string().minLength(5).maxLength(50),
@@ -11,4 +13,4 @@ const registerSchema = vine.object({
         .confirmed()
 })
 
-const RegisterValidator = vine.compile(registerSchema)
+export const RegisterValidator = vine.compile(registerSchema)
