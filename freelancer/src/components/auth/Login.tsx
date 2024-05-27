@@ -15,24 +15,27 @@ export default function Login() {
   return (
     <Card>
           <CardHeader>
-            <CardTitle>Account</CardTitle>
+            <CardTitle>Login</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you're done.
+              Give your details and login into your account.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
+
+          <form>
             <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type='email' placeholder='Enter your email' name='email'/>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type='password'
+              placeholder='Enter your password' name='password'/>
             </div>
+            <Button className='w-full mt-4'>Submit</Button>
+          </form>
+            
           </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
         </Card>
   )
 }

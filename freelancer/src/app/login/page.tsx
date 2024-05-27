@@ -16,10 +16,17 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import Image from "next/image"
 
 export default function TabsDemo() {
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center flex-col">
+      <div className="mb-4 flex flex-col justify-center items-center">
+        <Image src="/images/logo_512.png" width={80} height={80} alt="logo"/>
+        <p><strong>Freelancer</strong></p>
+        <p>a community of Freelancers</p>
+      </div>
+
     <Tabs defaultValue="login" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">Login</TabsTrigger>
