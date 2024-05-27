@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { registerAction } from '@/actions/authActions';
+import {useFormState} from "react-dom"
 
 const initState = {
     status: 0,
@@ -18,6 +19,7 @@ const initState = {
 }
 
 export default function Register() {
+  const [state, formAction] = useFormState(registerAction, initState)
   return (
     <Card>
           <CardHeader>
@@ -27,7 +29,7 @@ export default function Register() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <form action={registerAction}>
+            <form action={formAction}>
                 <div className="space-y-1">
                     <Label htmlFor="name">Name</Label>
                     <Input
@@ -36,6 +38,7 @@ export default function Register() {
                         placeholder='Enter your name' 
                         name='name'
                     />
+                    <span className='text-red-500 '>{state?.errors?.name}</span>
                 </div>
                 <div className="space-y-1 mt-2">
                 <Label htmlFor="username">Username</Label>

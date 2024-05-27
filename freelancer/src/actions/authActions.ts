@@ -2,7 +2,7 @@
 import { RegisterValidator } from '@/validations/authSchema';
 import vine, { errors } from '@vinejs/vine'
 
-export async function registerAction(formdata:FormData) {
+export async function registerAction(prevState:any, formdata:FormData) {
     
     try {
         const data = {
@@ -17,7 +17,7 @@ export async function registerAction(formdata:FormData) {
 
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
-            console.log(error.messages)
-          }
+            return {status: 400, errors: error.message};
+        }
     }
 }
