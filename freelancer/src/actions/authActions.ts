@@ -1,9 +1,13 @@
 "use server";
 import { RegisterValidator } from '@/validations/authSchema';
-import vine, { errors } from '@vinejs/vine'
+import { errors } from '@vinejs/vine'
+import {createClient} from "@/lib/supabase/supabaseServer"
+import {cookies} from "next/headers"
 
 export async function registerAction(prevState:any, formdata:FormData) {
     
+    const supabase = createClient(cookies())
+
     try {
         const data = {
             name: formdata.get("name"),
@@ -13,7 +17,16 @@ export async function registerAction(prevState:any, formdata:FormData) {
             password_confirmation: formdata.get("password_confirmation"),
         }
         const payload = await RegisterValidator.validate(data);
-        console.log("The form data is ", payload);
+        // console.log("The form data is ", payload);
+
+        // *Check user name if exits
+
+        const {data: userData, error} = await supabase.from("users").select("id").eq("username", payload.username)
+
+        console.log("The user data is", userData);
+        console.log("The error is", error);
+        
+        
 
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
