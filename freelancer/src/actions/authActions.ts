@@ -2,11 +2,11 @@
 import { RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine'
 import {createClient} from "@/lib/supabase/supabaseServer"
-import {cookies} from "next/headers"
+import { cookies } from 'next/headers';
 
 export async function registerAction(prevState:any, formdata:FormData) {
     
-    const supabase = createClient(cookies())
+    const supabase = createClient()
 
     try {
         const data = {
