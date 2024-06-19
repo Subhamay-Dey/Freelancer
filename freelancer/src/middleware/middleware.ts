@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/supabaseServer";
 import { cookies } from "next/headers";
 
 export async function middleware(request:NextRequest) {
-    const supabase = createClient(cookies())
+    const supabase = createClient()
     const {data, error} = await supabase.auth.getUser()
 
     //if the user is not logged in
