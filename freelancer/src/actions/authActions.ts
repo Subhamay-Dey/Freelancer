@@ -21,7 +21,10 @@ export async function registerAction(prevState:any, formdata:FormData) {
 
         // *Check user name if exits
 
-        const {data: userData, error} = await supabase.from("users").select("id").eq("username", payload.username)
+        const {data: userData, error} = await supabase
+        .from("users")
+        .select("id")
+        .eq("username", payload.username)
 
         console.log("The user data is", userData);
         console.log("The error is", error);
