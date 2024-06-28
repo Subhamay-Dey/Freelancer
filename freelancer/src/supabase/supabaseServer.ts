@@ -30,6 +30,12 @@ export function createClient(cookieStore: ReturnType<typeof cookies>) {
             // user sessions.
           }
         },
+        // getAll():any {
+        //   return cookieStore.getAll()
+        // },
+        // setAll(cookiesToSet: { name: any; value: any; options: any }[]) {
+        //   cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+        // },
       },
     }
   )

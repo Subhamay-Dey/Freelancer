@@ -1,7 +1,7 @@
 "use server";
 import { RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine';
-import {createClient} from "@/lib/supabase/supabaseServer";
+import {createClient} from "@/supabase/supabaseServer";
 import { cookies } from 'next/headers';
 
 export async function registerAction(prevState:any, formdata:FormData) {
