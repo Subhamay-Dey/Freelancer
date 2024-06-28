@@ -1,12 +1,12 @@
 "use server";
 import { RegisterValidator } from '@/validations/authSchema';
-import { errors } from '@vinejs/vine'
-import {createClient} from "@/lib/supabase/supabaseServer"
+import { errors } from '@vinejs/vine';
+import {createClient} from "@/lib/supabase/supabaseServer";
 import { cookies } from 'next/headers';
 
 export async function registerAction(prevState:any, formdata:FormData) {
     
-    const supabase = createClient()
+    const supabase = createClient(cookies())
 
     try {
         const data = {
@@ -26,8 +26,6 @@ export async function registerAction(prevState:any, formdata:FormData) {
         console.log("The user data is", userData);
         console.log("The error is", error);
         
-        
-
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
             return {status: 400, errors: error.messages};
