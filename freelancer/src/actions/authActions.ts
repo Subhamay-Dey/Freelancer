@@ -3,6 +3,7 @@ import { RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine';
 import {createClient} from "@/supabase/supabaseServer";
 import { cookies } from 'next/headers';
+import {redirect} from "next/navigation"
 
 export async function registerAction(prevState:any, formdata:FormData) {
     
@@ -37,10 +38,35 @@ export async function registerAction(prevState:any, formdata:FormData) {
                 }
             }
         }
+
+        const {error:signupErr} = await supabase.auth.signUp({
+            email: payload.email,
+            password: payload.password,
+            options:{
+                data:{
+                    name: payload.name,
+                    username: payload.username,
+                }
+            }
+        })
+
+        if(signupErr) {
+            return {
+                status: 400,
+                error: {email: signupErr.message}
+            }
+        }
+
+        await supabase.auth.signInWithPassword({
+            email: payload.email,
+            password: payload.password,
+        })
         
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
             return {status: 400, errors: error.messages};
         }
     }
+
+    return redirect("/")
 }
