@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { registerAction } from '@/actions/authActions';
 import {useFormState} from "react-dom"
+import Loader from './Loader';
 
 const initState = {
     status: 0,
@@ -82,7 +83,8 @@ export default function Register() {
                 />
                 
                 </div>
-                <Button className='w-full mt-6'>Submit</Button>
+                {/* <Button className='w-full mt-6'>Submit</Button> */}
+                <Loader/>
             </form>
 
           </CardContent>
