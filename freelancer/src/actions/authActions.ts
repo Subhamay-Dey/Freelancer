@@ -28,6 +28,15 @@ export async function registerAction(prevState:any, formdata:FormData) {
 
         console.log("The user data is", userData);
         console.log("The error is", error);
+
+        if(userData && userData?.length > 0) {
+            return {
+                status: 400,
+                error: {
+                    username: "Username is already taken, please use another username."
+                }
+            }
+        }
         
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
