@@ -17,7 +17,9 @@ create trigger on_auth_user_created
   for each row execute procedure public.add_new_user();
 
 
-  -- Create a trigger function for updates
+
+
+-- Create a trigger function for updates
 create function public.update_user()
 returns trigger
 language plpgsql

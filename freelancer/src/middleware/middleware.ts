@@ -11,7 +11,7 @@ export async function middleware(request:NextRequest) {
         return NextResponse.redirect(new URL("/login?error=Please login first to access this route.", request.url))
     }
     //if the user is logged in
-    return NextResponse.next()
+    return NextResponse.next()      
 }
 
 //protecting routes
