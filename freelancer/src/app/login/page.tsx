@@ -1,11 +1,6 @@
 import Login from "@/components/auth/Login"
 import Register from "@/components/auth/Register"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger, } from "@/components/ui/tabs"
 import Image from "next/image"
 
 export default function TabsDemo() {
