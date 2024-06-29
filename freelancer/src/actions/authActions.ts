@@ -3,7 +3,7 @@ import { RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine';
 import {createClient} from "@/supabase/supabaseServer";
 import { cookies } from 'next/headers';
-import {redirect} from "next/navigation"
+import {redirect} from "next/navigation";
 
 export async function registerAction(prevState:any, formdata:FormData) {
     
@@ -62,11 +62,12 @@ export async function registerAction(prevState:any, formdata:FormData) {
             password: payload.password,
         })
         
-    } catch (error) {
+    } 
+    catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
             return {status: 400, errors: error.messages};
         }
     }
 
-    return redirect("/")
+    return redirect("/");
 }
