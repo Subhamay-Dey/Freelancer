@@ -71,3 +71,11 @@ export async function registerAction(prevState:any, formdata:FormData) {
 
     return redirect("/");
 }
+
+export async function loginAction(prevState:any, formdata:FormData) {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
