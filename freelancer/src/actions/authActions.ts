@@ -1,5 +1,5 @@
 "use server";
-import { RegisterValidator } from '@/validations/authSchema';
+import { LoginValidator, RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine';
 import {createClient} from "@/supabase/supabaseServer";
 import { cookies } from 'next/headers';
@@ -73,9 +73,34 @@ export async function registerAction(prevState:any, formdata:FormData) {
 }
 
 export async function loginAction(prevState:any, formdata:FormData) {
+
+    const supabase = createClient(cookies());
+
     try {
-        
+        const data = {
+            email: formdata.get("email"),
+            password: formdata.get("password"),
+        }
+
+        const payload = await LoginValidator.validate(data);
+
+        const {error} = await supabase.auth.signInWithPassword({
+            email: payload.email,
+            password: payload.password,
+        });
+
+        if(error) {
+            return {
+                status: 400,
+                error: {email: error.message}
+            }
+        }
+
     } catch (error) {
-        
+        if (error instanceof errors.E_VALIDATION_ERROR) {
+            return {status: 400, errors: error.messages};
+        }
     }
+
+    return redirect("/");
 }
