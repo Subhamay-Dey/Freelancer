@@ -74,15 +74,17 @@ export async function registerAction(prevState:any, formdata:FormData) {
 
 export async function loginAction(prevState:any, formdata:FormData) {
 
-    const supabase = createClient(cookies());
+    // const supabase = createClient(cookies());
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
 
     try {
-        const data = {
+        const body = {
             email: formdata.get("email"),
             password: formdata.get("password"),
         }
 
-        const payload = await LoginValidator.validate(data);
+        const payload = await LoginValidator.validate(body);
 
         const {error} = await supabase.auth.signInWithPassword({
             email: payload.email,
@@ -98,6 +100,7 @@ export async function loginAction(prevState:any, formdata:FormData) {
 
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
+            console.log(error.messages);
             return {status: 400, errors: error.messages};
         }
     }
