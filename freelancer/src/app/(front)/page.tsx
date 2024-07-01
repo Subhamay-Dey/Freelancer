@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <>
       <Button>button</Button>
-      {/* {JSON.stringify(data.session?.user)} */}
+      {JSON.stringify(data.session?.user)}
     </>
   );
 }
