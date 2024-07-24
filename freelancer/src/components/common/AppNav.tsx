@@ -19,10 +19,20 @@ export default async function AppNav() {
             <HomeIcon size={30}/>
           </Link>
             
-            <Search size={30}/>
+            <Link href={"/search"} className={`cursor-pointer ${pathname === "/search" ? "text-foreground" : "text-gray-500"} `}>
+              <Search size={30}/>
+            </Link>
+            
             <StickyNote size={30}/>
-            <Bell size={30}/>
-            <User size={30}/>
+
+            <Link href={"/notifications"} className={`cursor-pointer ${pathname === "/notifications" ? "text-foreground" : "text-gray-500"} `}>
+              <Bell size={30}/>
+            </Link>
+            
+            <Link href={"/profile"} className={`cursor-pointer ${pathname === "/profile" ? "text-foreground" : "text-gray-500"} `}>
+              <User size={30}/>
+            </Link>
+            
         </div>
 
         <Settings/>
