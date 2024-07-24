@@ -10,9 +10,8 @@ export default async function Home() {
   const {data, error} = await supabase.auth.getSession()
 
   return (
-    <>
-      <Button>button</Button>
-      {JSON.stringify(data.session?.user)}
-    </>
+    <div>
+      
+    </div>
   );
 }
