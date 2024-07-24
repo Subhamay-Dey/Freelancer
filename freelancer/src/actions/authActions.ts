@@ -74,27 +74,27 @@ export async function registerAction(prevState:any, formdata:FormData) {
 
 export async function loginAction(prevState:any, formdata:FormData) {
 
-    // const supabase = createClient(cookies());
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createClient(cookies());
+    // const cookieStore = cookies();
+    // const supabase = createClient(cookieStore);
 
     try {
-        const body = {
+        const data = {
             email: formdata.get("email"),
             password: formdata.get("password"),
         }
 
-        const payload = await LoginValidator.validate(body);
+        const payload = await LoginValidator.validate(data);
 
-        const {error} = await supabase.auth.signInWithPassword({
+        const {error:loginErr} = await supabase.auth.signInWithPassword({
             email: payload.email,
             password: payload.password,
         });
 
-        if(error) {
+        if(loginErr) {
             return {
                 status: 400,
-                error: {email: error.message}
+                error: {email: loginErr.message}
             }
         }
 

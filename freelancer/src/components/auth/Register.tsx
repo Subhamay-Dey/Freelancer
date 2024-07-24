@@ -70,8 +70,8 @@ export default function Register() {
                 <Label htmlFor="cpassword">Confirm password</Label>
                 <Input
                     id="cpassword"
-                    type="password" 
-                    placeholder='Confirm your password' 
+                    type="password"
+                    placeholder='Confirm your password'
                     name='password_confirmation'
                 />
                 

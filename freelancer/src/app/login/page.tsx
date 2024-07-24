@@ -9,7 +9,7 @@ export default function TabsDemo() {
       <div className="mb-4 flex flex-col justify-center items-center">
         <Image src="/images/logo_512.png" width={80} height={80} alt="logo"/>
         <p><strong>Freelancer</strong></p>
-        <p>a community of Freelancers</p>
+        <p>A community of Freelancers</p>
       </div>
 
     <Tabs defaultValue="login" className="w-full p-2 md:w-[500px]">
