@@ -16,5 +16,5 @@ export async function middleware(request:NextRequest) {
 
 //protecting routes
 export const config = {
-    matcher : []
+    matcher : ["/"]
 }

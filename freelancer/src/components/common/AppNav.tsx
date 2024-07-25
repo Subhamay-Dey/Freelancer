@@ -5,8 +5,9 @@ import {Bell, HomeIcon, Search, Settings, StickyNote, User} from "lucide-react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AddPosts from '../posts/AddPosts';
+import { User as SupabaseUser } from '@supabase/supabase-js';
 
-export default async function AppNav() {
+export default async function AppNav({user}:{user:SupabaseUser}) {
   
   const pathname = usePathname();
   console.log("The current path is", pathname);
@@ -24,7 +25,7 @@ export default async function AppNav() {
               <Search size={30}/>
             </Link>
             
-            <AddPosts user={} children={<StickyNote size={30} className="text-gray-500 cursor-pointer hover:text-foreground"/>}/>
+            <AddPosts user={user} children={<StickyNote size={30} className="text-gray-500 cursor-pointer hover:text-foreground"/>}/>
             
 
             <Link href={"/notifications"} className={`cursor-pointer hover:text-foreground ${pathname === "/notifications" ? "text-foreground" : "text-gray-500"} `}>
