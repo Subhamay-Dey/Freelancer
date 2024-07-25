@@ -1,4 +1,5 @@
-"use server";
+"use server"
+
 import { LoginValidator, RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine';
 import {createClient} from "@/supabase/supabaseServer";
