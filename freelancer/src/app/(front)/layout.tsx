@@ -7,7 +7,7 @@ export default function FrontLayout({
     children: React.ReactNode;
   }>) {
     return (
-      <div className="container">
+      <div className="container relative h-screen">
         <MobileAppNav/>
         <AppNav/>
         {children}
