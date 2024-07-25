@@ -11,7 +11,7 @@ export default async function AppNav() {
   console.log("The current path is", pathname);
   
   return (
-    <nav className='flex justify-between items-center p-2'>
+    <nav className='hidden md:flex justify-between items-center p-2'>
         <Image src={"/images/logo_512.png"} priority width={60} height={60} alt='logo'/>
 
         <div className='flex space-x-12'>

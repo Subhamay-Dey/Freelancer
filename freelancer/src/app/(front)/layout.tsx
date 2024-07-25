@@ -1,4 +1,5 @@
 import AppNav from "@/components/common/AppNav";
+import MobileAppNav from "@/components/common/MobileAppNav";
 
 export default function FrontLayout({
     children,
@@ -7,6 +8,7 @@ export default function FrontLayout({
   }>) {
     return (
       <div className="container">
+        <MobileAppNav/>
         <AppNav/>
         {children}
     </div>
