@@ -4,6 +4,7 @@ import React from 'react';
 import {Bell, HomeIcon, Search, Settings, StickyNote, User} from "lucide-react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AddPosts from '../posts/AddPosts';
 
 export default async function AppNav() {
   
@@ -23,7 +24,8 @@ export default async function AppNav() {
               <Search size={30}/>
             </Link>
             
-            <StickyNote size={30} className="text-gray-500 cursor-pointer hover:text-foreground"/>
+            <AddPosts user={} children={<StickyNote size={30} className="text-gray-500 cursor-pointer hover:text-foreground"/>}/>
+            
 
             <Link href={"/notifications"} className={`cursor-pointer hover:text-foreground ${pathname === "/notifications" ? "text-foreground" : "text-gray-500"} `}>
               <Bell size={30}/>
