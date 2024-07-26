@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {
     Dialog,
     DialogContent,
@@ -9,10 +9,18 @@ import {
     DialogTrigger,
   } from "@/components/ui/dialog"
 import { User } from '@supabase/supabase-js'
+import { Image } from 'lucide-react'
+import { Button } from '../ui/button'
   
 function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
   const [open, setOpen] = useState(false)
+
+  const imageRef = useRef< HTMLInputElement | null >(null)
+
+  const handleImageIcon = () => {
+    imageRef.current?.click()
+  }
 
   return (
     <div>
@@ -20,12 +28,19 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent onInteractOutside={(e) => e.preventDefault()}>
             <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-                This action cannot be undone. This will permanently delete your account
-                and remove your data from our servers.
-            </DialogDescription>
+            <DialogTitle>Add Post</DialogTitle>
             </DialogHeader>
+            <div>
+              <textarea 
+                className='bg-muted w-full outline-none rounded-lg h-32 p-2 border' placeholder='Add your thoughts...'
+              >
+              </textarea>
+              <div className='flex justify-between items-center mt-2'>
+                <input type='file' className='hidden' ref={imageRef} accept='image/png , image/jpg, image/svg, image/jpeg, image/webp, image/gif'/>
+                <Image size={30} className='cursor-pointer' onClick={handleImageIcon}/>
+                <Button size={"sm"}>Post</Button>
+              </div>
+            </div>
         </DialogContent>
         </Dialog>
 
