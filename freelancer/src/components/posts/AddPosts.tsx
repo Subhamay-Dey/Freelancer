@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, {useState} from 'react'
 import {
     Dialog,
     DialogContent,
@@ -9,13 +10,15 @@ import {
   } from "@/components/ui/dialog"
 import { User } from '@supabase/supabase-js'
   
-
 function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
+
+  const [open, setOpen] = useState(false)
+
   return (
     <div>
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent>
+        <DialogContent onInteractOutside={(e) => e.preventDefault()}>
             <DialogHeader>
             <DialogTitle>Are you absolutely sure?</DialogTitle>
             <DialogDescription>
