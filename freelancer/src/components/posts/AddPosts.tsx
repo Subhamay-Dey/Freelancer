@@ -16,10 +16,23 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
   const [open, setOpen] = useState(false)
 
+  const [previewUrl, setPreviewUrl] = useState("")
+
+  const [image, setImage] = useState<File | null>(null)
+
   const imageRef = useRef< HTMLInputElement | null >(null)
 
   const handleImageIcon = () => {
     imageRef.current?.click()
+  }
+
+  const handleImageChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0]
+    if(selectedFile) {
+      setImage(selectedFile)
+      const imageUrl = URL.createObjectURL(selectedFile)
+      setPreviewUrl(imageUrl)
+    }
   }
 
   return (
@@ -36,7 +49,9 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
               >
               </textarea>
               <div className='flex justify-between items-center mt-2'>
-                <input type='file' className='hidden' ref={imageRef} accept='image/png , image/jpg, image/svg, image/jpeg, image/webp, image/gif'/>
+                <input type='file' className='hidden' ref={imageRef} accept='image/png , image/jpg, image/svg, image/jpeg, image/webp, image/gif'
+                onChange={handleImageChange}
+                />
                 <Image size={30} className='cursor-pointer' onClick={handleImageIcon}/>
                 <Button size={"sm"}>Post</Button>
               </div>
