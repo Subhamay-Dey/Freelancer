@@ -51,6 +51,9 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
       content: content,
       user_id: user.id
     }
+    if(image) {
+      
+    }
   }
 
   return (
