@@ -11,6 +11,7 @@ import {
 import { User } from '@supabase/supabase-js'
 import { Image } from 'lucide-react'
 import { Button } from '../ui/button'
+import ImagePreview from '../common/ImagePreview'
   
 function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
@@ -48,6 +49,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
                 className='bg-muted w-full outline-none rounded-lg h-32 p-2 border' placeholder='Add your thoughts...'
               >
               </textarea>
+              {previewUrl && <ImagePreview image={previewUrl}/>}
               <div className='flex justify-between items-center mt-2'>
                 <input type='file' className='hidden' ref={imageRef} accept='image/png , image/jpg, image/svg, image/jpeg, image/webp, image/gif'
                 onChange={handleImageChange}
