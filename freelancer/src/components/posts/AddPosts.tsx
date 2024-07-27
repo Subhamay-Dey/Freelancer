@@ -36,6 +36,14 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
     }
   }
 
+  const removePreview = () => {
+    setImage(null)
+    if(imageRef.current) {
+      imageRef.current.value = ""
+    }
+    setPreviewUrl("")
+  }
+
   return (
     <div>
         <Dialog open={open} onOpenChange={setOpen}>
@@ -49,7 +57,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
                 className='bg-muted w-full outline-none rounded-lg h-32 p-2 border' placeholder='Add your thoughts...'
               >
               </textarea>
-              {previewUrl && <ImagePreview image={previewUrl}/>}
+              {previewUrl && <ImagePreview image={previewUrl} callback={removePreview}/>}
               <div className='flex justify-between items-center mt-2'>
                 <input type='file' className='hidden' ref={imageRef} accept='image/png , image/jpg, image/svg, image/jpeg, image/webp, image/gif'
                 onChange={handleImageChange}
