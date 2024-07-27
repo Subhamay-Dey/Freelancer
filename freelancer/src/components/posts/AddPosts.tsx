@@ -22,8 +22,8 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
   const [image, setImage] = useState<File | null>(null)
 
   const imageRef = useRef< HTMLInputElement | null >(null)
-
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleImageIcon = () => {
     imageRef.current?.click()
@@ -44,6 +44,13 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
       imageRef.current.value = ""
     }
     setPreviewUrl("")
+  }
+  const addPost = () => {
+    setLoading(true)
+    const payload:PostPayloadType = {
+      content: content,
+      user_id: user.id
+    }
   }
 
   return (
@@ -67,7 +74,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
                 onChange={handleImageChange}
                 />
                 <Image size={30} className='cursor-pointer' onClick={handleImageIcon}/>
-                <Button size={"sm"} disabled={content.length <= 1 || image}>Post</Button>
+                <Button size={"sm"} disabled={content.length <= 1 }>Post</Button>
               </div>
             </div>
         </DialogContent>
