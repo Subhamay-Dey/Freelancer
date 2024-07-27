@@ -23,6 +23,8 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
   const imageRef = useRef< HTMLInputElement | null >(null)
 
+  const [content, setContent] = useState("");
+
   const handleImageIcon = () => {
     imageRef.current?.click()
   }
@@ -55,6 +57,8 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
             <div>
               <textarea 
                 className='bg-muted w-full outline-none rounded-lg h-32 p-2 border' placeholder='Add your thoughts...'
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
               >
               </textarea>
               {previewUrl && <ImagePreview image={previewUrl} callback={removePreview}/>}
@@ -63,7 +67,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
                 onChange={handleImageChange}
                 />
                 <Image size={30} className='cursor-pointer' onClick={handleImageIcon}/>
-                <Button size={"sm"}>Post</Button>
+                <Button size={"sm"} disabled={content.length <= 1 || image}>Post</Button>
               </div>
             </div>
         </DialogContent>

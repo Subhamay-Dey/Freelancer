@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import AddPosts from '../posts/AddPosts';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 
-export default async function AppNav({user}:{user:SupabaseUser}) {
+export default function AppNav({user}:{user:SupabaseUser}) {
   
   const pathname = usePathname();
   console.log("The current path is", pathname);
