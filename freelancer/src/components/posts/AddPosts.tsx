@@ -3,7 +3,6 @@ import React, {useState, useRef} from 'react'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -12,6 +11,9 @@ import { User } from '@supabase/supabase-js'
 import { Image } from 'lucide-react'
 import { Button } from '../ui/button'
 import ImagePreview from '../common/ImagePreview'
+import { v4 as uuidv4 } from 'uuid';
+import { createClient } from '@/supabase/supabaseClient'
+import Env from '@/Env/Env'
   
 function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
@@ -24,6 +26,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
   const imageRef = useRef< HTMLInputElement | null >(null)
   const [content, setContent] = useState("")
   const [loading, setLoading] = useState(false)
+  const supabase = createClient()
 
   const handleImageIcon = () => {
     imageRef.current?.click()
@@ -45,14 +48,15 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
     }
     setPreviewUrl("")
   }
-  const addPost = () => {
+  const addPost = async() => {
     setLoading(true)
     const payload:PostPayloadType = {
       content: content,
       user_id: user.id
     }
     if(image) {
-      
+      const path = `${user.id}/${uuidv4()}`
+      const {data, error} = await supabase.storage.from(Env.S3_BUCKET).upload(path, image)
     }
   }
 
