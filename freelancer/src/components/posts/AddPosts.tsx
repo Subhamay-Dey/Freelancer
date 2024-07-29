@@ -14,6 +14,7 @@ import ImagePreview from '../common/ImagePreview'
 import { v4 as uuidv4 } from 'uuid';
 import { createClient } from '@/supabase/supabaseClient'
 import Env from '@/Env/Env'
+import { toast } from 'react-toastify'
   
 function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
@@ -57,6 +58,13 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
     if(image) {
       const path = `${user.id}/${uuidv4()}`
       const {data, error} = await supabase.storage.from(Env.S3_BUCKET).upload(path, image)
+
+      if(error) {
+        console.log("The image upload error is", error);
+        toast.error("Something went wrong while uploading image", {theme:"colored"})
+        return
+      }
+      payload.image = data.path
     }
   }
 
