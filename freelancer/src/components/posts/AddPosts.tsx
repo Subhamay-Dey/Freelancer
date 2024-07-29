@@ -62,10 +62,24 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
       if(error) {
         console.log("The image upload error is", error);
         toast.error("Something went wrong while uploading image", {theme:"colored"})
+        setLoading(false)
         return
       }
       payload.image = data.path
     }
+
+    // Adding the post to the supabase db.
+
+    const {data, error} = await supabase.from("posts").insert(payload)
+
+    if(error) {
+      toast.error("Something went wrong while uploading the post", {theme:"colored"})
+      setLoading(false)
+      return
+    }
+    setLoading(false)
+    toast.success("Post added successfully", {theme: "colored"})
+    setOpen(false)
   }
 
   return (
