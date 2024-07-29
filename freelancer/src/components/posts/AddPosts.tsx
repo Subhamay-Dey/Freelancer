@@ -49,6 +49,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
     }
     setPreviewUrl("")
   }
+
   const addPost = async() => {
     setLoading(true)
     const payload:PostPayloadType = {
@@ -77,9 +78,15 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
       setLoading(false)
       return
     }
+    resetState()
     setLoading(false)
     toast.success("Post added successfully", {theme: "colored"})
     setOpen(false)
+  }
+
+  const resetState = () => {
+    setContent("");
+    removePreview();
   }
 
   return (
@@ -103,7 +110,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
                 onChange={handleImageChange}
                 />
                 <Image size={30} className='cursor-pointer' onClick={handleImageIcon}/>
-                <Button size={"sm"} disabled={content.length <= 1 }>Post</Button>
+                <Button size={"sm"} disabled={content.length <= 1 } onClick={addPost}>{loading ? "Processing" : "Post"}</Button>
               </div>
             </div>
         </DialogContent>
