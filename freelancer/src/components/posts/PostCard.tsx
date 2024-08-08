@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import UserAvatar from '../common/UserAvatar'
 import { MoreVertical } from 'lucide-react'
@@ -17,7 +19,7 @@ function PostCard() {
         <MoreVertical/>
       </div>
 
-      <Image src="https://kwrzjcvsmhefihoxtrjy.supabase.co/storage/v1/object/public/freelancers/d31d9543-1754-42a5-8819-5d568f02955f/2c4cdd5d-190c-4d9e-93e4-52a84552c2e0" width={10} height={10} alt='post_image' className='w-full object-contain rounded-lg'/>
+      <Image src="https://kwrzjcvsmhefihoxtrjy.supabase.co/storage/v1/object/public/freelancers/d31d9543-1754-42a5-8819-5d568f02955f/2c4cdd5d-190c-4d9e-93e4-52a84552c2e0" width={10} height={10} alt='post_image' className='w-full object-contain rounded-lg' unoptimized/>
     </div>
   )
 }
