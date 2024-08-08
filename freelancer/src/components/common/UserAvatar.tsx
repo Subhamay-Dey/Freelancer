@@ -12,7 +12,7 @@ function UserAvatar({name, image, width = 3, height = 3}:{
   return (
     <Avatar style={{width: `${width}rem`, height: `${height}rem`}}>
       <AvatarImage src={image} />
-      <AvatarFallback>{name[0]}</AvatarFallback>
+      <AvatarFallback className='text-xl font-bold'>{name[0].toUpperCase()}</AvatarFallback>
     </Avatar>
 
   )
