@@ -4,12 +4,12 @@ import React from 'react'
 import UserAvatar from '../common/UserAvatar'
 import { Bookmark, Heart, MessageCircle, MoreVertical, Send } from 'lucide-react'
 import Image from 'next/image'
-import { getS3Url } from '@/helpers/helper'
+import { formatDate, getS3Url } from '@/helpers/helper'
 
 function PostCard({post}: {post: PostType}) {
   return (
-    <div>
-      <div className='flex justify-between items-center'>
+    <div className='mt-4 bg-muted rounded-xl'>
+      <div className='flex justify-between items-center p-2'>
         <div className='flex space-x-2'>
           <UserAvatar 
             name={post.users?.name} 
@@ -17,7 +17,7 @@ function PostCard({post}: {post: PostType}) {
             />
           <div className='flex flex-col'>
             <p className='text-lg font-bold'>{post.users?.name}</p>
-            <p className='text-sm'>{post.created_at}</p>
+            <p className='text-sm'>{formatDate(post.created_at)}</p>
           </div>
         </div>
         <MoreVertical/>
@@ -33,10 +33,10 @@ function PostCard({post}: {post: PostType}) {
           unoptimized/>
         )}
 
-      <p className='mt-1'>{post.content}</p>
+      <p className='mt-1 p-2'>{post.content}</p>
 
       <div className='flex justify-between items-center mt-4'>
-        <div className='flex space-x-4'>
+        <div className='flex space-x-4 p-2'>
           <Heart/>
           <MessageCircle/>
           <Send/>
