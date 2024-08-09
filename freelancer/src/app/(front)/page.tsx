@@ -17,7 +17,9 @@ export default async function Home() {
   
   return (
     <div>
-      <PostCard/>
+      {posts && posts.length > 0 && posts.map((item,index) => (
+        <PostCard post={item} key={index}/>
+      ))}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import UserAvatar from '../common/UserAvatar'
 import { Bookmark, Heart, MessageCircle, MoreVertical, Send } from 'lucide-react'
 import Image from 'next/image'
 
-function PostCard() {
+function PostCard({post}: {post: PostType}) {
   return (
     <div>
       <div className='flex justify-between items-center'>
