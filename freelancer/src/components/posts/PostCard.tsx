@@ -35,8 +35,9 @@ function PostCard({post}: {post: PostType}) {
 
       <p className='mt-1 p-2'>{post.content}</p>
 
-      <div className='flex justify-between items-center mt-4'>
-        <div className='flex space-x-4 p-2'>
+      <div className='flex justify-between items-center mt-4 px-4 py-2
+      '>
+        <div className='flex space-x-4'>
           <Heart/>
           <MessageCircle/>
           <Send/>
