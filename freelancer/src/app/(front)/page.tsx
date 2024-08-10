@@ -12,7 +12,7 @@ export default async function Home() {
 
   const {data:posts, error:PostErr} = await supabase.from("posts").select("id, content, image, likes_count, reply_count, created_at, users(id, name, username, profile_image)");
 
-  console.log("The posts are", posts);
+  // console.log("The posts are", posts);
   console.log("The error is", PostErr);
   
   return (

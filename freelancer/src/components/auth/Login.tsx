@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
-  import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Loader from './Loader';
 import { useFormState } from 'react-dom';
@@ -31,7 +31,7 @@ export default function Login() {
               </div>
               <div className="space-y-1">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" placeholder='Enter your password' name='email'/>
+                <Input id="password" type="password" placeholder='Enter your password' name='password'/>
                 <span className='text-red-500 '>{state?.errors?.password}</span>
               </div>
               <div>

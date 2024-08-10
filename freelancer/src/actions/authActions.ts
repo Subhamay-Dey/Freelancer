@@ -3,12 +3,14 @@
 import { LoginValidator, RegisterValidator } from '@/validations/authSchema';
 import { errors } from '@vinejs/vine';
 import {createClient} from "@/supabase/supabaseServer";
+import {createActionClient} from "@/supabase/actions"
 import { cookies } from 'next/headers';
 import {redirect} from "next/navigation";
 
 export async function registerAction(prevState:any, formdata:FormData) {
 
-    const supabase = createClient(cookies())
+    const cookieStore = cookies()
+    const supabase = createActionClient(cookieStore)
 
     try {
         const data = {
@@ -19,10 +21,8 @@ export async function registerAction(prevState:any, formdata:FormData) {
             password_confirmation: formdata.get("password_confirmation"),
         }
         const payload = await RegisterValidator.validate(data);
-        // console.log("The form data is ", payload);
 
         // *Check user name if exits
-
         const {data: userData, error} = await supabase
         .from("users")
         .select("id")
@@ -75,11 +75,11 @@ export async function registerAction(prevState:any, formdata:FormData) {
 
 export async function loginAction(prevState:any, formdata:FormData) {
 
-    const supabase = createClient(cookies());
-    // const cookieStore = cookies();
-    // const supabase = createClient(cookieStore);
-
     try {
+
+        const cookieStore = cookies()
+        const supabase = createActionClient(cookieStore)
+        
         const data = {
             email: formdata.get("email"),
             password: formdata.get("password"),
