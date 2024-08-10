@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AddPosts from '../posts/AddPosts';
 import { User as SupabaseUser } from '@supabase/supabase-js';
+import { SettingDropdown } from './Setting';
 
 export default function AppNav({user}:{user:SupabaseUser}) {
   
@@ -38,7 +39,7 @@ export default function AppNav({user}:{user:SupabaseUser}) {
             
         </div>
 
-        <Settings className='cursor-pointer'/>
+        <SettingDropdown/>
     </nav>
   )
 }
