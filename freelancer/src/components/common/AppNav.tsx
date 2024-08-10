@@ -26,7 +26,9 @@ export default function AppNav({user}:{user:SupabaseUser}) {
               <Search size={30}/>
             </Link>
             
-            <AddPosts user={user} children={<StickyNote size={30} className="text-gray-500 cursor-pointer hover:text-foreground"/>}/>
+            <AddPosts user={user}>
+              <StickyNote size={30} className="text-gray-500 cursor-pointer hover:text-foreground"/>
+            </AddPosts>
             
 
             <Link href={"/notifications"} className={`cursor-pointer hover:text-foreground ${pathname === "/notifications" ? "text-foreground" : "text-gray-500"} `}>
