@@ -39,7 +39,7 @@ function PostCard({post}: {post: PostType}) {
       <div className='flex justify-between items-center mt-4 px-4 py-2
       '>
         <div className='flex space-x-4'>
-          <PostLike/>
+          <PostLike post={post} UserId={post.users?.id}/>
           <MessageCircle className='cursor-pointer'/>
           <Send className='cursor-pointer'/>
         </div>
