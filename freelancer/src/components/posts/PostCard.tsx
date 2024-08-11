@@ -30,7 +30,7 @@ function PostCard({post}: {post: PostType}) {
           width={10} 
           height={10} 
           alt='post_image' 
-          className='w-full object-contain rounded-lg mt-2' 
+          className='w-full object-contain rounded-lg select-none mt-2' 
           unoptimized/>
         )}
 
@@ -40,15 +40,15 @@ function PostCard({post}: {post: PostType}) {
       '>
         <div className='flex space-x-4'>
           <PostLike/>
-          <MessageCircle/>
-          <Send/>
+          <MessageCircle className='cursor-pointer'/>
+          <Send className='cursor-pointer'/>
         </div>
-        <Bookmark/>
+        <Bookmark className='cursor-pointer'/>
       </div>
 
       <div className='flex space-x-4 p-2'>
-        <p>Likes {post.likes_count}</p>
-        <p>Replies {post.reply_count}</p>
+        <p className='select-none'>Likes {post.likes_count}</p>
+        <p className='select-none'>Replies {post.reply_count}</p>
       </div>
 
     </div>

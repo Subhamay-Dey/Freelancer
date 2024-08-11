@@ -2,14 +2,26 @@
 
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
+import {createClient} from "@/supabase/supabaseClient"
 
-function PostLike() {
+function PostLike({post, UserId}: {post: PostType, UserId: string}) {
 
   const [isLiked, setIsLiked] = useState(false)
-
-  const ToggleLike = (type: number) => {
+  const supabase = createClient()
+  const ToggleLike = async (type: number) => {
     if(type === 1) {
       setIsLiked(true)
+      await supabase.rpc("like_increment", {row_id: post.id, count: 1})
+      await supabase.from("likes")
+      .insert({
+        user_id: UserId, 
+        post_id: post.id })
+      await supabase.from("notification")
+      .insert({
+        user_id: UserId, 
+        post_id: post.id, 
+        to_user_id: post.users?.id, 
+        type: 1 })
     } else {
       setIsLiked(false)
     }

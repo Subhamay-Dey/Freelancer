@@ -5,12 +5,12 @@ type PostPayloadType = {
 }
 
 type PostType = {
-    id: number,
+    id: number,    
+    created_at: string,
     content: string,
     image?: string,
     likes_count: number,
     reply_count: number,
-    created_at: string,
     users: any,
 }
 
