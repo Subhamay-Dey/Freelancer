@@ -2,9 +2,10 @@
 
 import React from 'react'
 import UserAvatar from '../common/UserAvatar'
-import { Bookmark, Heart, MessageCircle, MoreVertical, Send } from 'lucide-react'
+import { Bookmark, MessageCircle, MoreVertical, Send } from 'lucide-react'
 import Image from 'next/image'
 import { formatDate, getS3Url } from '@/helpers/helper'
+import PostLike from './PostLike'
 
 function PostCard({post}: {post: PostType}) {
   return (
@@ -38,7 +39,7 @@ function PostCard({post}: {post: PostType}) {
       <div className='flex justify-between items-center mt-4 px-4 py-2
       '>
         <div className='flex space-x-4'>
-          <Heart/>
+          <PostLike/>
           <MessageCircle/>
           <Send/>
         </div>
