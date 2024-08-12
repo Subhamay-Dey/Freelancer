@@ -6,35 +6,35 @@ import {createClient} from "@/supabase/supabaseClient"
 
 function PostLike({post, UserId}: {post: PostType, UserId: string}) {
 
-  const [isLiked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState(post.liked)
   const supabase = createClient()
 
   const ToggleLike = async (type: number) => {
 
     if(type === 1) {
       setIsLiked(true)
-      await supabase.rpc("like_increment", {row_id: post.id, count: 1})
+      await supabase.rpc("like_increment", {row_id: post.post_id, count: 1})
       await supabase.from("likes")
       .insert({
         user_id: UserId, 
-        post_id: post.id })
+        post_id: post.post_id })
       await supabase.from("notification")
       .insert({
         user_id: UserId, 
-        post_id: post.id, 
-        to_user_id: post.users?.id, 
+        post_id: post.post_id, 
+        to_user_id: post.user_id, 
         type: 1 })
     } else {
       setIsLiked(false)
-      await supabase.rpc("like_decrement", {row_id: post.id, count: 1})
+      await supabase.rpc("like_decrement", {row_id: post.post_id, count: 1})
       await supabase.from("likes").delete()
       .match({
         user_id: UserId, 
-        post_id: post.id })
+        post_id: post.post_id })
       await supabase.from("notification").delete()
       .match({
         user_id: UserId, 
-        post_id: post.id, 
+        post_id: post.post_id, 
         type: 1 })
     }
   }

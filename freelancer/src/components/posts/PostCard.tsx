@@ -13,11 +13,11 @@ function PostCard({post}: {post: PostType}) {
       <div className='flex justify-between items-center p-2'>
         <div className='flex space-x-2'>
           <UserAvatar 
-            name={post.users?.name} 
-            image={post.users?.profile_image ? getS3Url(post.users?.profile_image) : ""}
+            name={post.name} 
+            image={post.profile_image ? getS3Url(post.profile_image) : ""}
             />
           <div className='flex flex-col'>
-            <p className='text-lg font-bold'>{post.users?.name}</p>
+            <p className='text-lg font-bold'>{post.name}</p>
             <p className='text-sm'>{formatDate(post.created_at)}</p>
           </div>
         </div>
@@ -39,7 +39,7 @@ function PostCard({post}: {post: PostType}) {
       <div className='flex justify-between items-center mt-4 px-4 py-2
       '>
         <div className='flex space-x-4'>
-          <PostLike post={post} UserId={post.users?.id}/>
+          <PostLike post={post} UserId={post.user_id}/>
           <MessageCircle className='cursor-pointer'/>
           <Send className='cursor-pointer'/>
         </div>
