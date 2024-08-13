@@ -42,7 +42,7 @@ function PostCard({post, user}: {post: PostType, user:User}) {
       '>
         <div className='flex space-x-4'>
           <PostLike post={post} UserId={post.user_id}/>
-          <AddComment user={user} postId={post.post_id} children={<MessageCircle className='cursor-pointer'/>}/>
+          <AddComment user={user} post={post} children={<MessageCircle className='cursor-pointer'/>}/>
           <Send className='cursor-pointer'/>
         </div>
         <Bookmark className='cursor-pointer'/>

@@ -16,7 +16,7 @@ import { createClient } from '@/supabase/supabaseClient'
 import Env from '@/Env/Env'
 import { toast } from 'react-toastify'
   
-function AddComment({user, postId, children}:{user:User, postId: number, children:React.ReactNode}) {
+function AddComment({user, post, children}:{user:User, post: PostType, children:React.ReactNode}) {
 
   const [open, setOpen] = useState(false)
 
@@ -55,7 +55,7 @@ function AddComment({user, postId, children}:{user:User, postId: number, childre
     const payload:CommentPayloadType = {
       content: content,
       user_id: user.id,
-      post_id: postId,
+      post_id: post.post_id,
     }
     if(image) {
       const path = `${user.id}/${uuidv4()}`
@@ -79,6 +79,18 @@ function AddComment({user, postId, children}:{user:User, postId: number, childre
       setLoading(false)
       return
     }
+
+    // Update the reply count in the post table.
+
+    await supabase.rpc("comment_increment",{row_id: post.post_id, count: 1})
+
+    await supabase.from("notification").insert({
+        user_id: user.id, 
+        post_id: post.post_id, 
+        to_user_id: post.user_id, 
+        type: 2
+    })
+
     resetState()
     setLoading(false)
     toast.success("Comment added successfully", {theme: "colored"})
