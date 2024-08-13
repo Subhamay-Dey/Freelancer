@@ -6,8 +6,10 @@ import { Bookmark, MessageCircle, MoreVertical, Send } from 'lucide-react'
 import Image from 'next/image'
 import { formatDate, getS3Url } from '@/helpers/helper'
 import PostLike from './PostLike'
+import AddComment from '../comments/AddComment'
+import { User } from '@supabase/supabase-js'
 
-function PostCard({post}: {post: PostType}) {
+function PostCard({post, user}: {post: PostType, user:User}) {
   return (
     <div className='mt-4 bg-muted rounded-xl'>
       <div className='flex justify-between items-center p-2'>
@@ -40,7 +42,7 @@ function PostCard({post}: {post: PostType}) {
       '>
         <div className='flex space-x-4'>
           <PostLike post={post} UserId={post.user_id}/>
-          <MessageCircle className='cursor-pointer'/>
+          <AddComment user={user} postId={post.post_id} children={<MessageCircle className='cursor-pointer'/>}/>
           <Send className='cursor-pointer'/>
         </div>
         <Bookmark className='cursor-pointer'/>

@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <div>
       {posts && posts.length > 0 && posts.map((item: PostType,index: number) => (
-        <PostCard post={item} key={index}/>
+        <PostCard post={item} user={data.session?.user!} key={index}/>
       ))}
     </div>
   );
