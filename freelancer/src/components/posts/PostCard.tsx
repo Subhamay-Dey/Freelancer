@@ -8,6 +8,7 @@ import { formatDate, getS3Url } from '@/helpers/helper'
 import PostLike from './PostLike'
 import AddComment from '../comments/AddComment'
 import { User } from '@supabase/supabase-js'
+import ImageViewModal from '../common/ImageViewModal'
 
 function PostCard({post, user}: {post: PostType, user:User}) {
   return (
@@ -26,15 +27,7 @@ function PostCard({post, user}: {post: PostType, user:User}) {
         <MoreVertical/>
       </div>
 
-      { post.image && (
-        <Image 
-          src={getS3Url(post.image)} 
-          width={10} 
-          height={10} 
-          alt='post_image' 
-          className='w-full object-contain rounded-lg select-none mt-2' 
-          unoptimized/>
-        )}
+      { post.image && (<ImageViewModal image={post.image}/>)}
 
       <p className='mt-1 p-2'>{post.content}</p>
 
