@@ -4,6 +4,17 @@ type PostPayloadType = {
     user_id : string;
 }
 
+type CommentPayloadType = {
+    content: string,
+    image?: string,
+    user_id: string,
+    post_id: number,
+}
+            //Or
+// type CommentPayloadType = PostPayloadType & {
+//     post_id: number,
+// }
+
 type PostType = {
     post_id: number,    
     user_id: string,
