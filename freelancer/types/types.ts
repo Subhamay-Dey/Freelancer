@@ -44,3 +44,13 @@ type NotificationType = {
     created_at: string,
     users: any
 }
+
+type CommentType = {
+    id: number,
+    user_id: string,
+    post_id: number,
+    content: string,
+    image?: string,
+    created_at: string,
+    users: any
+}

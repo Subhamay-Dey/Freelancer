@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image';
 import React from 'react';
-import { ArrowLeft, Bell, HomeIcon, Search, Settings, StickyNote, User} from "lucide-react";
+import { ArrowLeft, Bell, HomeIcon, Search, StickyNote, User} from "lucide-react";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import AddPosts from '../posts/AddPosts';

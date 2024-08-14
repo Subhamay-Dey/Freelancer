@@ -12,11 +12,15 @@ async function ShowPost({params}:{params: {id: number}}) {
     const {data:post, error: error} = await supabase
         .rpc("get_posts_with_likes", {request_user_id: data.session?.user?.id})
         .eq("post_id", params?.id)
-        .single()
+        .single();
 
-    console.log("The post is:" , post);
-    console.log("The error is:", error);
-    
+    const {data: commentdata, error: commenterror} = await supabase
+      .from("comments")
+      .select("id, user_id, post_id, content, image, created_at, users(id, name, username, profile_image)")
+      .eq("post_id", params.id)
+
+      console.log("The comment data", commentdata);
+      
     
   return (
     <div>
