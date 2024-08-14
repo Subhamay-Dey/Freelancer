@@ -1,6 +1,8 @@
 import React from 'react'
 import {createClient} from "../../../supabase/supabaseServer"
 import { cookies } from 'next/headers'
+import UserAvatar from '@/components/common/UserAvatar'
+import { formatDate } from '@/helpers/helper'
 
 async function Notifications() {
 
@@ -18,7 +20,20 @@ async function Notifications() {
     console.log("The error is:", notification_error);
 
   return (
-    <div>Notifications</div>
+    <div>
+        {notification_data && notification_data.length > 0 && notification_data.map((item:NotificationType, index) => (
+            <div className='flex space-x-3 items-center my-2' key={index}>
+                <UserAvatar name={item.users?.name!} image={item.users?.profile_image!}/>
+                <div>
+                  <p className='flex gap-4'>
+                    <strong>{item.users?.name!}</strong>
+                    <p>{item.type === 1 ? "liked your post" : "commented on your post"}</p>
+                  </p>
+                  <p className='text-sm text-gray-400'>{formatDate(item.created_at)}</p>
+                </div>
+            </div>
+        ))}
+    </div>
   )
 }
 

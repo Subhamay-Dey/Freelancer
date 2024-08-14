@@ -36,3 +36,11 @@ type UserType = {
     username: string,
     profile_image: string,
 }
+
+type NotificationType = {
+    user_id: string,
+    post_id: number,
+    type: number
+    created_at: string,
+    users: any
+}
