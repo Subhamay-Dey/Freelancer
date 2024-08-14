@@ -3,6 +3,7 @@ import React from 'react'
 import { createClient } from '@/supabase/supabaseServer';
 import { cookies } from 'next/headers';
 import PostCard from '@/components/posts/PostCard';
+import CommentCard from '@/components/comments/CommentCard';
 
 async function ShowPost({params}:{params: {id: number}}) {
 
@@ -18,13 +19,14 @@ async function ShowPost({params}:{params: {id: number}}) {
       .from("comments")
       .select("id, user_id, post_id, content, image, created_at, users(id, name, username, profile_image)")
       .eq("post_id", params.id)
-
-      console.log("The comment data", commentdata);
-      
     
   return (
     <div>
         <PostCard user={data.session?.user!} post={post as PostType}/>
+        {commentdata && commentdata.length > 0 && <div>
+          <h1 className='text-2xl font-bold'>Comments :- </h1>
+          {commentdata?.map((item, index) => <CommentCard comment={item} key={index}/> )}
+        </div>}
     </div>
   )
 }
