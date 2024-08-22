@@ -5,6 +5,7 @@ import {createClient} from "@/supabase/supabaseServer"
 import {cookies} from "next/headers"
 import { User } from '@supabase/supabase-js'
 import { Button } from '@/components/ui/button'
+import ProfileUpdate from '@/components/user/ProfileUpdate'
 
 async function Profile() {
   const supabase = createClient(cookies())
@@ -21,7 +22,7 @@ async function Profile() {
       </div>
 
       <p className='mt-4'>{user.user_metadata?.["description"]}</p>
-      <Button variant={'outline'} className='w-full'>Edit Profile</Button>
+      <ProfileUpdate/>
     </div>
   )
 } 
