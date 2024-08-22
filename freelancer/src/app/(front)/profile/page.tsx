@@ -4,7 +4,6 @@ import React from 'react'
 import {createClient} from "@/supabase/supabaseServer"
 import {cookies} from "next/headers"
 import { User } from '@supabase/supabase-js'
-import { Button } from '@/components/ui/button'
 import ProfileUpdate from '@/components/user/ProfileUpdate'
 
 async function Profile() {
@@ -22,7 +21,7 @@ async function Profile() {
       </div>
 
       <p className='mt-4'>{user.user_metadata?.["description"]}</p>
-      <ProfileUpdate/>
+      <ProfileUpdate user={user}/>
     </div>
   )
 } 

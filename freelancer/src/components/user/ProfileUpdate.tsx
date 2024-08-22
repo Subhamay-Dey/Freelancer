@@ -1,16 +1,29 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from "@/components/ui/dialog"
+  } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from '../ui/button';
+import { User } from '@supabase/supabase-js';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import Image from 'next/image';
 
-function ProfileUpdate() {
+function ProfileUpdate({user}:{user:User}) {
+
+    const [authState, setAuthState] = useState({
+        name: user.user_metadata?.["name"],
+        description: user.user_metadata?.["description"],
+        email: user.email,
+    })
+
+    const [image, setImage] = useState<File | null>(null)
+
   return (
     <Dialog>
     <DialogTrigger asChild>
@@ -18,12 +31,30 @@ function ProfileUpdate() {
     </DialogTrigger>
     <DialogContent onInteractOutside={(e) => e.preventDefault()}>
         <DialogHeader>
-        <DialogTitle>Update Profile</DialogTitle>
-        <DialogDescription>
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-        </DialogDescription>
+            <DialogTitle>Update Profile</DialogTitle>
         </DialogHeader>
+        <form>
+            <div className='mb-4 space-y-2'>
+                <Label htmlFor='name' >Name</Label>
+                <Input id='name' value={authState.name} placeholder='Enter your name' onChange={(e) => setAuthState({...authState, name:e?.target.value})}></Input>
+            </div>
+            <div className='mb-4 space-y-2'>
+                <Label htmlFor='email'>Email</Label>
+                <Input id='email' value={authState.email} readOnly></Input>
+            </div>
+            <div className='mb-4 space-y-2'>
+                <Label htmlFor='description'>Description</Label>
+                <Textarea id="description" value={authState.description} placeholder='Enter the bio' onChange={(e) => setAuthState({...authState, description: e.target.value})}></Textarea>
+            </div>
+            <div className='mb-4 space-y-2'>
+                <Label htmlFor='image'>Image</Label>
+                <Input type='file' id='image'/>
+            </div>
+            <div className='mt-6'>
+                <Button className='w-full'>Update Profile</Button>
+            </div>
+        </form>
+        
     </DialogContent>
     </Dialog>
 
