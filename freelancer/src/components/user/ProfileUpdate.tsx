@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     Dialog,
     DialogContent,
@@ -23,6 +23,26 @@ function ProfileUpdate({user}:{user:User}) {
     })
 
     const [image, setImage] = useState<File | null>(null)
+
+    const imageRef = useRef< HTMLInputElement | null >(null)
+    const [previewUrl, setPreviewUrl] = useState("")
+
+    const handleImageChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0]
+        if(selectedFile) {
+          setImage(selectedFile)
+          const imageUrl = URL.createObjectURL(selectedFile)
+          setPreviewUrl(imageUrl)
+        }
+      }
+
+      const removePreview = () => {
+        setImage(null)
+        if(imageRef.current) {
+          imageRef.current.value = ""
+        }
+        setPreviewUrl("")
+      }
 
   return (
     <Dialog>
