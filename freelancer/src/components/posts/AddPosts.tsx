@@ -26,7 +26,7 @@ function AddPosts({user, children}:{user:User, children:React.ReactNode}) {
 
   const imageRef = useRef< HTMLInputElement | null >(null)
   const [content, setContent] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false) 
   const supabase = createClient()
 
   const handleImageIcon = () => {

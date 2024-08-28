@@ -13,6 +13,7 @@ import { User } from '@supabase/supabase-js';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import Image from 'next/image';
+import ImagePreview from '../common/ImagePreview';
 
 function ProfileUpdate({user}:{user:User}) {
 
@@ -26,6 +27,7 @@ function ProfileUpdate({user}:{user:User}) {
 
     const imageRef = useRef< HTMLInputElement | null >(null)
     const [previewUrl, setPreviewUrl] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const handleImageChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0]
@@ -68,8 +70,9 @@ function ProfileUpdate({user}:{user:User}) {
             </div>
             <div className='mb-4 space-y-2'>
                 <Label htmlFor='image'>Image</Label>
-                <Input type='file' id='image'/>
+                <Input type='file' id='image' onChange={handleImageChange}/>
             </div>
+            {previewUrl && <ImagePreview image={previewUrl} callback={removePreview}/>}
             <div className='mt-6'>
                 <Button className='w-full'>Update Profile</Button>
             </div>
