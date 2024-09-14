@@ -54,3 +54,9 @@ type CommentType = {
     created_at: string,
     users: any
 }
+
+type ProfilePayloadType = {
+    name: string;
+    description?: string;
+    profile_image?: string;
+}
