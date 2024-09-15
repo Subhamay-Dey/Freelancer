@@ -9,15 +9,15 @@ import { getS3Url } from '@/helpers/helper'
 
 async function page({searchParams}:{searchParams: {[key: string] : string | undefined}}) {
   const supabase = createClient(cookies())
-  const {data, error} = await supabase.from("users").select("id, username, name, profile_image").ilike("username", `%${searchParams?.q}%`)
+  const {data:user, error} = await supabase.from("users").select("id, username, name, profile_image").ilike("username", `%${searchParams?.q}%`)
 
-  console.log("The users is", data)
+  console.log("The users is", user)
   console.log("The error is", error)
   return (
     <div>
         <SearchInput/>
-        {data && data.length > 0 && data.map((item, index) => (
-          <Link href={`/data/${item.id}`} key={index} className='flex space-x-3 mt-4'>
+        {user && user.length > 0 && user.map((item, index) => (
+          <Link href={`/user/${item.id}`} key={index} className='flex space-x-3 mt-4'>
             <UserAvatar 
               name={item.name}
               image={item.profile_image ? getS3Url(item.profile_image) : ""}

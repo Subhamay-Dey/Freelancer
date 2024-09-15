@@ -2,7 +2,7 @@
 
 import { Search } from 'lucide-react'
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 
 function SearchInput() {
 
@@ -25,7 +25,7 @@ function SearchInput() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <Search className='absolute left-2 top-3 text-gray-400' />
+            <Search className='absolute left-2 top-3 text-gray-400'/>
         </div>
     </form>
   )
