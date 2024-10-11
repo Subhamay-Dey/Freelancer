@@ -7,10 +7,17 @@ import { User } from '@supabase/supabase-js'
 import ProfileUpdate from '@/components/user/ProfileUpdate'
 import { getS3Url } from '@/helpers/helper'
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 async function Profile() {
   const supabase = createClient(cookies())
   const {data} = await supabase.auth.getSession()
   const user:User = data.session?.user!
+
+  const {data: posts, error: customErr} = await supabase.rpc("get_posts_with_likes", {
+    request_user_id: data.session?.user.id
+  })
+  .order("post_id", {ascending: false})
 
   return (
     <div>
@@ -30,7 +37,20 @@ async function Profile() {
       </div>
 
       <p className='mt-4'>{user.user_metadata?.["description"]}</p>
-      <ProfileUpdate user={user}/>
+
+      <div className='mt-4'>
+        <ProfileUpdate user={user}/>
+      </div>
+
+      <Tabs defaultValue="posts" className="w-full mt-4">
+        <TabsList className='w-full grid grid-cols-2'>
+          <TabsTrigger value="posts">Posts</TabsTrigger>
+          <TabsTrigger value="comments">Comments</TabsTrigger>
+        </TabsList>
+        <TabsContent value="posts">Make changes to your account here.</TabsContent>
+        <TabsContent value="comments">Change your password here.</TabsContent>
+      </Tabs>
+
     </div>
   )
 }

@@ -35,6 +35,8 @@ type UserType = {
     name: string,
     username: string,
     profile_image: string,
+    email:string,
+    metadata:{},
 }
 
 type NotificationType = {
