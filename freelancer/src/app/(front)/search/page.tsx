@@ -21,7 +21,6 @@ async function page({searchParams}:{searchParams: {[key: string] : string | unde
             <UserAvatar 
               name={item.name}
               image={item.profile_image ? getS3Url(item.profile_image) : ""}
-              
             />
             <div className='flex flex-col'>
               <p className='font-bold'>{item.name}</p>

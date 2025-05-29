@@ -23,8 +23,8 @@ async function Profile() {
     <div>
       <div className='flex justify-between items-center'>
           <div>
-              <p className='text-2xl font-bold'>{user.user_metadata?.["name"]}</p>
-              <p className='font-bold'>@{user.user_metadata?.["username"]}</p>
+              <p className='text-2xl font-bold'>{user?.user_metadata?.["name"]}</p>
+              <p className='font-bold'>@{user?.user_metadata?.["username"]}</p>
           </div>
           <UserAvatar 
           name={user.user_metadata?.["name"]} 

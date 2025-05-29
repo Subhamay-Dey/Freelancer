@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from "@/provider/ThemeProvider";
- 
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
