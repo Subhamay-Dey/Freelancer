@@ -8,7 +8,7 @@ export async function middleware(request:NextRequest) {
 
     //if the user is not logged in
     if(data.user === null) {
-        return NextResponse.redirect(new URL("/login?error=Please login first to access this route.", request.url))
+        return NextResponse.redirect(new URL("/login", request.url))
     }
     //if the user is logged in
     return NextResponse.next()      
