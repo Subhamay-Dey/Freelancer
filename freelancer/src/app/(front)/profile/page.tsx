@@ -9,6 +9,7 @@ import { getS3Url } from '@/helpers/helper'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import PostCard from '@/components/posts/PostCard'
+import CommentCard from '@/components/comments/CommentCard'
 
 async function Profile() {
   const supabase = createClient(cookies())
@@ -20,6 +21,11 @@ async function Profile() {
   })
   .eq("user_id", user.id)
   .order("post_id", {ascending: false})
+
+  const {data: commentdata} = await supabase
+  .from("comments")
+  .select("id, user_id, post_id, content, image, created_at, users(id, name, username, profile_image)")
+  .eq("user_id", user.id)
 
   return (
     <div>
@@ -54,7 +60,10 @@ async function Profile() {
             <PostCard post={item} user={user} key={index}/>
           ))}
         </TabsContent>
-        <TabsContent value="comments">Change your password here.</TabsContent>
+        <TabsContent value="comments">
+          {commentdata && commentdata.length > 0 && 
+            commentdata?.map((item, index) => <CommentCard comment={item} key={index}/> )}
+        </TabsContent>
       </Tabs>
 
     </div>
