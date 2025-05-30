@@ -8,15 +8,17 @@ import ProfileUpdate from '@/components/user/ProfileUpdate'
 import { getS3Url } from '@/helpers/helper'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import PostCard from '@/components/posts/PostCard'
 
 async function Profile() {
   const supabase = createClient(cookies())
   const {data} = await supabase.auth.getSession()
   const user:User = data.session?.user!
 
-  const {data: posts, error: customErr} = await supabase.rpc("get_posts_with_likes", {
+  const {data: posts} = await supabase.rpc("get_posts_with_likes", {
     request_user_id: data.session?.user.id
   })
+  .eq("user_id", user.id)
   .order("post_id", {ascending: false})
 
   return (
@@ -47,7 +49,11 @@ async function Profile() {
           <TabsTrigger value="posts">Posts</TabsTrigger>
           <TabsTrigger value="comments">Comments</TabsTrigger>
         </TabsList>
-        <TabsContent value="posts">Make changes to your account here.</TabsContent>
+        <TabsContent value="posts">
+          {posts && posts.length > 0 && posts.map((item: PostType,index: number) => (
+            <PostCard post={item} user={user} key={index}/>
+          ))}
+        </TabsContent>
         <TabsContent value="comments">Change your password here.</TabsContent>
       </Tabs>
 
