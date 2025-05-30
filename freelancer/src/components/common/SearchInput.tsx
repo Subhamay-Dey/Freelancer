@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 function SearchInput() {
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
   const router = useRouter();
 
   const handleSubmit = (event: React.FormEvent) => {

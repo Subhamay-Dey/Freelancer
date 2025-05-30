@@ -9,7 +9,7 @@ const notFound = () => {
         <div className='h-screen flex justify-center items-center flex-col'>
             <Image src={"/images/404.svg"} width={500} height={500} alt='404 page'/>
             <Link href={"/"}>
-            <Button>Back to home</Button>
+              <Button>Back to home</Button>
             </Link>
         </div>
     </>

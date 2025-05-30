@@ -8,10 +8,15 @@ import UserAvatar from '@/components/common/UserAvatar'
 import { getS3Url } from '@/helpers/helper'
 
 async function page({searchParams}:{searchParams: {[key: string] : string | undefined}}) {
-  const supabase = createClient(cookies())
-  const {data:user, error} = await supabase.from("users").select("id, username, name, profile_image").ilike("username", `%${searchParams?.q}%`)
 
-  console.log("The users is", user)
+  console.log("The search params is", searchParams?.q)
+  const supabase = createClient(cookies())
+  const {data:user, error} = await supabase
+    .from("users")
+    .select("id, username, name, profile_image")
+    .ilike("username", `%${searchParams?.q}%`)
+
+  console.log("The users are", user)
   console.log("The error is", error)
   return (
     <div>
