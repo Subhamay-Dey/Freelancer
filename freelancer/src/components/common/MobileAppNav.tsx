@@ -1,14 +1,15 @@
 "use client"
 
-import { MenuIcon, Plus, Settings } from 'lucide-react'
+import { Plus, Settings } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
+import MobileSidebar from './MobileSidebar'
 
 function MobileAppNav() {
   return (
     <div className='md:hidden lg:hidden xl:hidden '>
         <nav className='flex justify-between items-center p-2'>
-            <MenuIcon size={30}/>
+            <MobileSidebar/>
             <Image src={"/images/logo_512.png"} alt='mobilelogo' width={40} height={40}/>
             <Settings size={30}/>
         </nav>
