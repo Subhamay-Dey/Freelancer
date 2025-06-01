@@ -10,7 +10,7 @@ import { User } from '@supabase/supabase-js'
 import ImageViewModal from '../common/ImageViewModal'
 import Link from 'next/link'
 
-function PostCard({post, user}: {post: PostType, user:User}) {
+function PostCard({post, user}: {post: PostType, user:User | any}) {
   return (
     <div className='mt-4 bg-muted rounded-xl'>
       <div className='flex justify-between items-center p-2'>
