@@ -33,6 +33,10 @@ async function page({searchParams}:{searchParams: {[key: string] : string | unde
             </div>
           </Link>
         ))}
+
+        {user && user.length === 0 && (
+          <p className='text-center mt-2 font-bold'>No user found!!</p>
+        )}
     </div>
   )
 }
