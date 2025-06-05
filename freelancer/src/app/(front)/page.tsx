@@ -1,6 +1,7 @@
 import React from "react";
 import {createClient} from "@/supabase/supabaseServer";
 import { cookies } from "next/headers";
+import Posts from "@/components/posts/Posts";
 export default async function Home() {   
 
   const supabase = createClient(cookies())
@@ -11,7 +12,7 @@ export default async function Home() {
 
   return (
     <div>
-      
+      <Posts posts={posts}/>
     </div>
   );
 }
