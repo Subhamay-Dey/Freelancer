@@ -1,13 +1,64 @@
-import React from 'react'
-import {createClient} from "@/supabase/supabaseServer";
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import { cookies } from "next/headers";
 import PostCard from './PostCard'
 import { User } from '@supabase/supabase-js';
+import { createClient } from '@/supabase/supabaseClient';
 
-async function Posts({user, posts}:{user: User ,posts:PostType[] | []}) {
+async function Posts({user, data}:{user: User ,data:PostType[] | []}) {
+
+  const supabase = createClient()
+
+  const [posts, setPosts] = useState(data)
+
+  useEffect(() => {
+
+    const channel = supabase.channel("postsChannel")
+
+    channel.on("postgres_changes", {
+      event: "INSERT",
+      schema: "public",
+      table: "posts",
+    }, async (payload) => {
+
+      const {data: postUser, error} = await supabase
+      .from("users")
+      .select("id, name, username, email, profile_image")
+      .eq("id", payload.new?.user_id)
+      .single()
+
+      console.log("The post user is", postUser);
+      console.log("The error is", error);
+
+      const data:PostType = {
+        post_id: payload.new?.id,
+        user_id: payload.new?.user_id,
+        content: payload.new?.content,
+        image: payload.new?.image,
+        likes_count: payload.new?.likes_count,
+        reply_count: payload.new?.reply_count,
+        created_at: payload.new?.created_at,
+        liked: false,
+        name: postUser?.name as string,
+        username: postUser?.username as string,
+        email: postUser?.email as string,
+        profile_image: postUser?.profile_image as string
+      }
+      setPosts([data, ...posts])
+    })
+    .subscribe()
+
+    return () => {
+      channel.unsubscribe()
+    }
+
+  }, [])
+  
+
   return (
     <div>
-      {posts && posts.length > 0 && posts.map((item: PostType,index: number) => (
+      {data && data.length > 0 && data.map((item: PostType,index: number) => (
         <PostCard post={item} user={user} key={index}/>
       ))}
     </div>

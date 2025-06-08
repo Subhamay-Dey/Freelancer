@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <div>
       {posts && posts.length > 0 && (
-        <Posts posts={posts} user={data?.session?.user!}/>
+        <Posts data={posts} user={data?.session?.user!}/>
       )}
     </div>
   );
