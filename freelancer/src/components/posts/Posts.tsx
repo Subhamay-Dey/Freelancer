@@ -29,7 +29,7 @@ async function Posts({user, data}:{user: User ,data:PostType[] | []}) {
       .single()
 
       console.log("The post user is", postUser);
-      console.log("The error is", error);
+      console.log("The error is", error)
 
       const data:PostType = {
         post_id: payload.new?.id,
