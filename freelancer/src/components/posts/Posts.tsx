@@ -22,6 +22,8 @@ async function Posts({user, data}:{user: User ,data:PostType[] | []}) {
       table: "posts",
     }, async (payload) => {
 
+      console.log("The post payload is!", payload);
+
       const {data: postUser, error} = await supabase
       .from("users")
       .select("id, name, username, email, profile_image")
