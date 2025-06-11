@@ -1,16 +1,23 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import { cookies } from "next/headers";
 import PostCard from './PostCard'
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/supabase/supabaseClient';
+import Loading from '@/app/(front)/loading';
+import { useInView } from 'react-intersection-observer';
 
-function Posts({user, data}:{user: User ,data:PostType[] | []}) {
+function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], postsCount: number}) {
 
   const supabase = createClient()
 
   const [posts, setPosts] = useState(data)
+
+  const {ref, inView} = useInView({threshold: 0})
+
+  useEffect(() => {
+    console.log(inView, "The in view is here");
+  },[inView])
 
   useEffect(() => {
 
@@ -56,13 +63,16 @@ function Posts({user, data}:{user: User ,data:PostType[] | []}) {
     }
 
   }, [])
-  
 
   return (
     <div>
       {data && data.length > 0 && data.map((item: PostType,index: number) => (
         <PostCard post={item} user={user} key={index}/>
       ))}
+
+      <div className='flex justify-center' ref={ref}>
+        <Loading/>
+      </div>
     </div>
   )
 }

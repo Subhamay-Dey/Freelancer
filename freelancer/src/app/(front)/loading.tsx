@@ -1,6 +1,6 @@
 import React from 'react'
 
-function loading() {
+function Loading() {
   return (
     <div className='w-full h-screen flex justify-center items-start'>
         <div className='animate-spin h-10 w-10 border-t-4 border-b-4 border-primary rounded-full'>
@@ -9,4 +9,4 @@ function loading() {
   )
 }
 
-export default loading
+export default Loading
