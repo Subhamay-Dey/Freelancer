@@ -9,6 +9,7 @@ export default async function Home() {
 
   const {data: posts, error: customErr} = await supabase.rpc("get_posts_with_likes", {request_user_id: data.session?.user.id})
   .order("post_id",{ascending: false})
+  .range(0, 4);
 
   return (
     <div>

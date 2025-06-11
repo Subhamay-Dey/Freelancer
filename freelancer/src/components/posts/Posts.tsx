@@ -6,7 +6,7 @@ import PostCard from './PostCard'
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/supabase/supabaseClient';
 
-async function Posts({user, data}:{user: User ,data:PostType[] | []}) {
+function Posts({user, data}:{user: User ,data:PostType[] | []}) {
 
   const supabase = createClient()
 
@@ -42,10 +42,10 @@ async function Posts({user, data}:{user: User ,data:PostType[] | []}) {
         reply_count: payload.new?.reply_count,
         created_at: payload.new?.created_at,
         liked: false,
-        name: postUser?.name as string,
-        username: postUser?.username as string,
-        email: postUser?.email as string,
-        profile_image: postUser?.profile_image as string
+        name: postUser?.name,
+        username: postUser?.username,
+        email: postUser?.email,
+        profile_image: postUser?.profile_image
       }
       setPosts([data, ...posts])
     })
