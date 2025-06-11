@@ -21,6 +21,7 @@
     "@vinejs/vine": "^2.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "lenis": "^1.3.4",
     "lucide-react": "^0.378.0",
     "moment": "^2.30.1",
     "next": "14.2.3",

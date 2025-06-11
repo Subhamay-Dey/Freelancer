@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from "@/provider/ThemeProvider";
+import SmoothScroll from "@/components/motion/SmoothScroll";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -36,7 +37,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SmoothScroll>
+            {children} 
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
