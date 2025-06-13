@@ -12,12 +12,23 @@ function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], posts
   const supabase = createClient()
 
   const [posts, setPosts] = useState(data)
+  const [page, setPage] = useState(1);
+  const postLimit = 5
 
   const {ref, inView} = useInView({threshold: 0})
 
   useEffect(() => {
     console.log(inView, "The in view is here");
   },[inView])
+
+  const fetchMorePosts = async() => {
+    let from = page * postLimit;
+    let to = from + postLimit;
+
+    if(from > postsCount) {
+      return false;
+    }
+  }
 
   useEffect(() => {
 
