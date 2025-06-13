@@ -6,6 +6,7 @@ import { User } from '@supabase/supabase-js';
 import { createClient } from '@/supabase/supabaseClient';
 import Loading from '@/app/(front)/loading';
 import { useInView } from 'react-intersection-observer';
+import { toast } from 'react-toastify';
 
 function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], postsCount: number}) {
 
@@ -28,6 +29,18 @@ function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], posts
     if(from > postsCount) {
       return false;
     }
+
+    const {data: posts, error: CustomError} = await supabase
+      .rpc("get_posts_with_likes", {request_user_id: user.id},)
+      .order("post_id",{ascending: false})
+      .range(from, to);
+
+      if(CustomError) {
+        toast.error("Something went wrong while fetching more posts!")
+        return;
+      }
+
+      setPage(page + 1)
   }
 
   useEffect(() => {
