@@ -37,7 +37,7 @@ function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], posts
 
       if(CustomError) {
         toast.error("Something went wrong while fetching more posts!")
-        return;
+        return
       }
 
       setPage(page + 1)
