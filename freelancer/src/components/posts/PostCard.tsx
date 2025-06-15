@@ -9,6 +9,7 @@ import AddComment from '../comments/AddComment'
 import { User } from '@supabase/supabase-js'
 import ImageViewModal from '../common/ImageViewModal'
 import Link from 'next/link'
+import PostMoreOptions from './PostMoreOptions'
 
 function PostCard({post, user}: {post: PostType, user:User | any}) {
   return (
@@ -24,7 +25,7 @@ function PostCard({post, user}: {post: PostType, user:User | any}) {
             <p className='text-sm'>{formatDate(post.created_at)}</p>
           </div>
         </div>
-        <MoreVertical/>
+        <PostMoreOptions userId={user.id} post={post}/>
       </div>
 
       { post.image && (<ImageViewModal image={post.image}/>)}
