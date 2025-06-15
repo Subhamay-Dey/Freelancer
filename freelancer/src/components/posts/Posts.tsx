@@ -48,7 +48,7 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
 
       const morePosts: Array<PostType> | [] = data;
       if(morePosts && morePosts.length > 0) {
-        setPosts([...data, ...morePosts]);
+        setPosts([...posts, ...morePosts]);
       } else {
         setNoMoreData(true);
       }
@@ -101,7 +101,7 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
 
   return (
     <div>
-      {data && data.length > 0 && data.map((item: PostType,index: number) => (
+      {posts && posts.length > 0 && posts.map((item: PostType,index: number) => (
         <PostCard post={item} user={user} key={index}/>
       ))}
 
