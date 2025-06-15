@@ -58,7 +58,23 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
 
     const channel = supabase.channel("postsChannel")
 
-    channel.on("postgres_changes", {
+    channel
+    .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
+          schema: "public",
+          table: "posts",
+        },
+        (payload) => {
+          console.log("The delete payload is", payload);
+          const filterPosts = posts.filter(
+            (item) => item.post_id !== payload.old?.id
+          );
+          setPosts(filterPosts);
+        }
+      )
+    .on("postgres_changes", {
       event: "INSERT",
       schema: "public",
       table: "posts",

@@ -16,7 +16,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from '../ui/button'
 import { createClient } from '@/supabase/supabaseClient'
@@ -31,7 +30,6 @@ function PostMoreOptions({userId, post}: {userId: string, post: PostType}) {
     const deletePost = async() => {
         await supabase.from("posts").delete().eq('id', post.post_id)
         setOpen(false);
-        window.location.reload();
     }
 
     const PostInfo = async() => {
