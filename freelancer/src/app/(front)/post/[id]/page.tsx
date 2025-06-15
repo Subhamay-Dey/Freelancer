@@ -24,7 +24,7 @@ async function ShowPost({params}:{params: {id: number}}) {
     <div>
         <PostCard user={data.session?.user!} post={post as PostType}/>
         {commentdata && commentdata.length > 0 && <div>
-          <h1 className='text-2xl font-bold'>Comments :- </h1>
+          <h1 className='text-2xl font-bold mt-4'>Comments :- </h1>
           {commentdata?.map((item, index) => <CommentCard comment={item} key={index}/> )}
         </div>}
     </div>

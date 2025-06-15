@@ -10,12 +10,24 @@ import { User } from '@supabase/supabase-js'
 import ImageViewModal from '../common/ImageViewModal'
 import Link from 'next/link'
 import PostMoreOptions from './PostMoreOptions'
+import { useRouter } from 'next/navigation'
 
 function PostCard({post, user}: {post: PostType, user:User | any}) {
+
+  const router = useRouter();
+
+  const navigateUser = () => {
+    if(post.user_id === user.id) {
+      router.push("/profile");
+    } else {
+      router.push(`/user/${post.user_id}`);
+    }
+  }
+
   return (
     <div className='mt-4 bg-muted rounded-xl'>
       <div className='flex justify-between items-center p-2'>
-        <div className='flex space-x-2'>
+        <div className='flex space-x-2 cursor-pointer' onClick={() => navigateUser()}>
           <UserAvatar 
             name={post.name} 
             image={post.profile_image ? getS3Url(post.profile_image) : ""}
