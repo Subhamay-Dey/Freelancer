@@ -20,16 +20,22 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from '../ui/button'
 import { createClient } from '@/supabase/supabaseClient'
+import { useRouter } from 'next/navigation'
 
 function PostMoreOptions({userId, post}: {userId: string, post: PostType}) {
 
     const [open, setOpen] = React.useState(false);
     const supabase = createClient()
+    const router = useRouter()
 
     const deletePost = async() => {
         await supabase.from("posts").delete().eq('id', post.post_id)
         setOpen(false);
         window.location.reload();
+    }
+
+    const PostInfo = async() => {
+        router.push(`/post/${post.post_id}`)
     }
 
   return (
@@ -58,9 +64,8 @@ function PostMoreOptions({userId, post}: {userId: string, post: PostType}) {
                 <MoreVertical className='cursor-pointer' />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem>Info</DropdownMenuItem>
+                <DropdownMenuItem onClick={PostInfo}>Info</DropdownMenuItem>
                 {userId === post.user_id && (<DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>)}
-                
             </DropdownMenuContent>
         </DropdownMenu>
     </div>
