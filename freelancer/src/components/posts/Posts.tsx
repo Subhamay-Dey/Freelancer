@@ -8,39 +8,50 @@ import Loading from '@/app/(front)/loading';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 
-function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], postsCount: number}) {
+function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], totalPosts: number}) {
 
   const supabase = createClient()
 
   const [posts, setPosts] = useState(data)
   const [page, setPage] = useState(1);
-  const postLimit = 5
+  const [noMoreData, setNoMoreData] = useState(false)
+  const limit = 5
 
   const {ref, inView} = useInView({threshold: 0})
 
   useEffect(() => {
-    console.log(inView, "The in view is here");
+    if(inView) {
+      fetchMorePosts()
+    }
   },[inView])
 
   const fetchMorePosts = async() => {
-    let from = page * postLimit;
-    let to = from + postLimit;
+    let from = page * limit;
+    let to = from + limit;
 
-    if(from > postsCount) {
+    if(from > totalPosts) {
+      setNoMoreData(true)
       return false;
     }
 
-    const {data: posts, error: CustomError} = await supabase
+    const {data, error} = await supabase
       .rpc("get_posts_with_likes", {request_user_id: user.id},)
       .order("post_id",{ascending: false})
       .range(from, to);
 
-      if(CustomError) {
+      setPage(page + 1)
+
+      if(error) {
         toast.error("Something went wrong while fetching more posts!")
         return
       }
 
-      setPage(page + 1)
+      const morePosts: Array<PostType> | [] = data;
+      if(morePosts && morePosts.length > 0) {
+        setPosts([...data, ...morePosts]);
+      } else {
+        setNoMoreData(true);
+      }
   }
 
   useEffect(() => {
@@ -94,9 +105,11 @@ function Posts({user, data, postsCount}:{user: User ,data:PostType[] | [], posts
         <PostCard post={item} user={user} key={index}/>
       ))}
 
-      <div className='flex justify-center' ref={ref}>
+      {!noMoreData && <div className='flex justify-center mt-2' ref={ref}>
         <Loading/>
-      </div>
+      </div>}
+
+      {noMoreData && <div className='text-center text-gray-500 my-4'>No more posts to show!</div>}
     </div>
   )
 }

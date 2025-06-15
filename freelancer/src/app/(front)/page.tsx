@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <div>
       {posts && posts.length > 0 && (
-        <Posts data={posts} user={data?.session?.user!} postsCount={count ?? 0}/>
+        <Posts data={posts} user={data?.session?.user!} totalPosts={count ?? 0}/>
       )}
     </div>
   );
