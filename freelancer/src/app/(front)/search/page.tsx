@@ -11,6 +11,9 @@ async function page({searchParams}:{searchParams: {[key: string] : string | unde
 
   console.log("The search params is", searchParams?.q)
   const supabase = createClient(cookies())
+  const {data: sessiondata} = await supabase.auth.getSession();
+  const loggedInUser = sessiondata?.session?.user?.id
+
   const {data:user, error} = await supabase
     .from("users")
     .select("id, username, name, profile_image")
@@ -21,18 +24,21 @@ async function page({searchParams}:{searchParams: {[key: string] : string | unde
   return (
     <div>
         <SearchInput/>
-        {user && user.length > 0 && user.map((item, index) => (
-          <Link href={`/user/${item.id}`} key={index} className='flex space-x-3 mt-4'>
-            <UserAvatar 
-              name={item.name}
-              image={item.profile_image ? getS3Url(item.profile_image) : ""}
-            />
-            <div className='flex flex-col'>
-              <p className='font-bold'>{item.name}</p>
-              <p>@{item.username}</p>
-            </div>
-          </Link>
-        ))}
+        {user && user.length > 0 && user.map((item, index) => {
+          const isYou = item.id === loggedInUser
+          return (
+            <Link href={isYou ? `/profile` : `/user/${item.id}`} key={index} className='flex space-x-3 mt-4'>
+              <UserAvatar 
+                name={item.name}
+                image={item.profile_image ? getS3Url(item.profile_image) : ""}
+              />
+              <div className='flex flex-col'>
+                <p className='font-bold'>{item.name}{isYou && <span className='text-sm ml-1'>(YOU)</span>}</p>
+                <p>@{item.username}</p>
+              </div>
+            </Link>
+            )
+        })}
 
         {user && user.length === 0 && (
           <p className='text-center mt-2 font-bold'>No user found!!</p>
