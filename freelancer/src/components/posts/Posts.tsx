@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import PostCard from './PostCard'
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/supabase/supabaseClient';
@@ -19,13 +19,8 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
 
   const {ref, inView} = useInView({threshold: 0})
 
-  useEffect(() => {
-    if(inView) {
-      fetchMorePosts()
-    }
-  },[inView])
-
-  const fetchMorePosts = async() => {
+  // Wrap fetchMorePosts in useCallback to stabilize the reference
+  const fetchMorePosts = useCallback(async() => {
     let from = page * limit;
     let to = from + limit;
 
@@ -48,11 +43,18 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
 
       const morePosts: Array<PostType> | [] = data;
       if(morePosts && morePosts.length > 0) {
-        setPosts([...posts, ...morePosts]);
+        // Use functional update to avoid dependency on posts
+        setPosts(prevPosts => [...prevPosts, ...morePosts]);
       } else {
         setNoMoreData(true);
       }
-  }
+  }, [page, totalPosts, supabase, user.id])
+
+  useEffect(() => {
+    if(inView) {
+      fetchMorePosts()
+    }
+  },[inView, fetchMorePosts])
 
   useEffect(() => {
 
@@ -68,10 +70,10 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
         },
         (payload) => {
           console.log("The delete payload is", payload);
-          const filterPosts = posts.filter(
+          // Use functional update to avoid dependency on posts
+          setPosts(prevPosts => prevPosts.filter(
             (item) => item.post_id !== payload.old?.id
-          );
-          setPosts(filterPosts);
+          ));
         }
       )
     .on("postgres_changes", {
@@ -105,7 +107,8 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
         email: postUser?.email,
         profile_image: postUser?.profile_image
       }
-      setPosts([data, ...posts])
+      // Use functional update to avoid dependency on posts
+      setPosts(prevPosts => [data, ...prevPosts])
     })
     .subscribe()
 
@@ -113,7 +116,7 @@ function Posts({data, user, totalPosts}:{user: User ,data:Array<PostType> | [], 
       channel.unsubscribe()
     }
 
-  }, [])
+  }, [supabase])
 
   return (
     <div>
