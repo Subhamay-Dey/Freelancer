@@ -122,7 +122,7 @@ function AddComment({user, post, children}:{user:User, post: PostType, children:
                 <input type='file' className='hidden' alt='file' ref={imageRef} accept='image/png , image/jpg, image/svg, image/jpeg, image/webp, image/gif'
                 onChange={handleImageChange}
                 />
-                <Image size={30} className='cursor-pointer' onClick={handleImageIcon}/>
+                <Image size={30} className='cursor-pointer' onClick={handleImageIcon} aria-label="Upload image"/>
                 <Button size={"sm"} disabled={content.length <= 1 } onClick={addComment}>{loading ? "Processing" : "Comment"}</Button>
               </div>
             </div>

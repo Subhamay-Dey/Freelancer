@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +23,7 @@ import { useRouter } from 'next/navigation'
 
 function PostMoreOptions({userId, post}: {userId: string, post: PostType}) {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const supabase = createClient()
     const router = useRouter()
 
@@ -44,7 +44,7 @@ function PostMoreOptions({userId, post}: {userId: string, post: PostType}) {
             <DialogTitle>Are you absolutely sure?</DialogTitle>
             <DialogDescription>
               This action cannot be undone. This will permanently delete your
-              post and remove it's data from our servers.
+              post and remove {"it's"} data from our servers.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
