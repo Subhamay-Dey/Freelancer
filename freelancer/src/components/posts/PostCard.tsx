@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import UserAvatar from '../common/UserAvatar'
 import { Bookmark, MessageCircle, MoreVertical, Send } from 'lucide-react'
 import { formatDate, getS3Url } from '@/helpers/helper'
@@ -11,13 +11,25 @@ import ImageViewModal from '../common/ImageViewModal'
 import Link from 'next/link'
 import PostMoreOptions from './PostMoreOptions'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/supabase/supabaseClient'
 
 function PostCard({post, user}: {post: PostType, user:User | any}) {
 
   const router = useRouter();
+  const supabase = createClient();
+
+  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      setLoggedInUser(data?.session?.user?.id || null);
+    };
+    fetchSession();
+  }, []);
 
   const navigateUser = () => {
-    if(post.user_id === user.id) {
+    if(post.user_id === loggedInUser) {
       router.push("/profile");
     } else {
       router.push(`/user/${post.user_id}`);
