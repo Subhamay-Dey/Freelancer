@@ -11,25 +11,23 @@ import ImageViewModal from '../common/ImageViewModal'
 import Link from 'next/link'
 import PostMoreOptions from './PostMoreOptions'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/supabase/supabaseClient'
+import { useUserStore } from '@/store/store'
 
 function PostCard({post, user}: {post: PostType, user:User | any}) {
 
   const router = useRouter();
-  const supabase = createClient();
 
-  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const zustandUser = useUserStore((state) => state.user);
+  const fetchUser = useUserStore((state) => state.fetchUser);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      setLoggedInUser(data?.session?.user?.id || null);
-    };
-    fetchSession();
-  }, []);
+    if(!zustandUser) {
+      fetchUser();
+    }
+  }, [zustandUser, fetchUser]);
 
   const navigateUser = () => {
-    if(post.user_id === loggedInUser) {
+    if(post.user_id === zustandUser?.id) {
       router.push("/profile");
     } else {
       router.push(`/user/${post.user_id}`);
