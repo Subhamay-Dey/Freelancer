@@ -18,4 +18,4 @@ const pathname = usePathname()
   return null
 }
 
-export default ScrollTop;
+export default ScrollTop
